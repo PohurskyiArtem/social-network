@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/social-network/static/css/main.08e1d5fb.chunk.css",
+    "main.js": "/social-network/static/js/main.c1e9258b.chunk.js",
+    "main.js.map": "/social-network/static/js/main.c1e9258b.chunk.js.map",
+    "runtime-main.js": "/social-network/static/js/runtime-main.ad4ca7e5.js",
+    "runtime-main.js.map": "/social-network/static/js/runtime-main.ad4ca7e5.js.map",
+    "static/js/2.18b4f1c0.chunk.js": "/social-network/static/js/2.18b4f1c0.chunk.js",
+    "static/js/2.18b4f1c0.chunk.js.map": "/social-network/static/js/2.18b4f1c0.chunk.js.map",
+    "static/css/3.c8810be8.chunk.css": "/social-network/static/css/3.c8810be8.chunk.css",
+    "static/js/3.75298c38.chunk.js": "/social-network/static/js/3.75298c38.chunk.js",
+    "static/js/3.75298c38.chunk.js.map": "/social-network/static/js/3.75298c38.chunk.js.map",
+    "static/css/4.5d119620.chunk.css": "/social-network/static/css/4.5d119620.chunk.css",
+    "static/js/4.33fa65db.chunk.js": "/social-network/static/js/4.33fa65db.chunk.js",
+    "static/js/4.33fa65db.chunk.js.map": "/social-network/static/js/4.33fa65db.chunk.js.map",
+    "index.html": "/social-network/index.html",
+    "static/css/3.c8810be8.chunk.css.map": "/social-network/static/css/3.c8810be8.chunk.css.map",
+    "static/css/4.5d119620.chunk.css.map": "/social-network/static/css/4.5d119620.chunk.css.map",
+    "static/css/main.08e1d5fb.chunk.css.map": "/social-network/static/css/main.08e1d5fb.chunk.css.map",
+    "static/js/2.18b4f1c0.chunk.js.LICENSE.txt": "/social-network/static/js/2.18b4f1c0.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/social-network/static/media/NunitoSans-Regular.87d92665.ttf",
+    "static/media/icons.644f2a5a.svg": "/social-network/static/media/icons.644f2a5a.svg",
+    "static/media/icons.78c7bf79.svg": "/social-network/static/media/icons.78c7bf79.svg",
+    "static/media/icons.af7164fe.svg": "/social-network/static/media/icons.af7164fe.svg",
+    "static/media/messages.52541f95.png": "/social-network/static/media/messages.52541f95.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ad4ca7e5.js",
+    "static/js/2.18b4f1c0.chunk.js",
+    "static/css/main.08e1d5fb.chunk.css",
+    "static/js/main.c1e9258b.chunk.js"
+  ]
+}
