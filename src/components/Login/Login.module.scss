@@ -1,0 +1,90 @@
+.login {
+    color: purple;
+    font-size: 40px;
+
+    .header {
+        font-size: 45px;
+        margin-bottom: 20px;
+    }
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+
+    .fieldContainer {
+        width: 100%;
+        margin-bottom: 20px;
+
+        input {
+            width: calc(100% - 10px);
+            height: 35px;
+        }
+    }
+
+    .remember_label {
+        align-self: flex-start;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #626c72;
+        font-size: 20px;
+    
+        span {
+            margin-right: 10px;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    
+    .formSummaryError {
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        padding: 5px;
+        font-size: 20px;
+        color: #ff6060;
+
+        svg {
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+        }
+    }
+    
+    .submit {
+        margin-top: 15px;
+        border: 1px solid var(--medium-purple);
+        padding: 5px;
+        width: 100%;
+        min-height: 45px;
+    }    
+}
+
+.captchaContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

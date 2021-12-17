@@ -1,0 +1,44 @@
+.contacts { 
+    .contactsList {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+
+
+        .contactsItem {
+            transition: transform  0.3s;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.2, 1.2);
+                transition: transform  0.3s;
+            }
+
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+
+        @media only screen and (max-width : 360px)  {
+            .contactsTitle {
+                font-size: 25px;
+                font-weight: bold;
+            }
+
+            .contactsItem {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    svg {
+        display: block;
+        width: 50px;
+        height: 50px;
+
+        use {
+            width: 50px;
+            height: 50px;
+        }
+    }
+}

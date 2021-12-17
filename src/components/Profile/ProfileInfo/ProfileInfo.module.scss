@@ -1,0 +1,259 @@
+.profile {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+
+    .userInfo {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 50px;
+        width: 100%;
+        min-height: 300px;
+
+        @media only screen and (max-width : 600px) {
+            flex-direction: column;
+        }
+    }
+}
+
+.avatar {
+    position: relative;
+    flex: 1.5;
+    border: 2px solid #a969eb;
+    border-radius: 100%;
+    overflow: hidden;
+    min-width: 250px;
+    height: 250px;
+
+
+    .changeAvatar {
+        position: absolute;
+        left: 0;
+        bottom: -50%;
+        z-index: 2;
+        border-radius: 0 0 50% 50% / 0 0 100% 100%;
+        width: 100%;
+        height: 50%;
+        background-color: rgba(0, 0, 0, 0.5);
+        text-align: center;
+        transition: bottom 0.3s;
+
+        svg {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-55%);
+            height: 50px;
+            width: 80px;
+
+            use {
+                fill: #fff;
+            }
+        }
+
+        span {
+            position: absolute;
+            bottom: 40%;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            letter-spacing: 3px;
+            color: #fff;
+        }
+
+        input {
+            display: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            svg {
+                animation: jumpingIcon ease-in-out 0.75s;
+            }
+        }
+    }
+
+    img{
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        border-radius: 100%;
+        width: 100%;
+        height: 100%;
+    }
+
+    &:hover {
+        .changeAvatar {
+            bottom: 0;
+            transition: bottom 0.3s;
+        }    
+    }
+
+    @media (max-width: (1024px)) {
+        flex: content;
+        width: 250px;
+        height: 250px;
+    }
+
+    @media (max-width: (600px)) {
+        align-self: center;
+        width: 70%;
+
+        img {
+            position: relative;
+        }
+    }
+
+    @media (max-width: 360px) {
+        width: 90%;
+        margin-bottom: 10px;
+
+        img {
+            position: relative;
+        }
+    }
+}
+
+.description {
+    position: relative;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 50px;
+
+    .settingsLink {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.3s;
+
+        svg {
+            width: 35px;
+            height: 35px;
+
+            use {
+                fill: #626c72;
+            }
+        }
+
+        &:hover {
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        @media (max-width: (1024px)) {
+            right: 20px;
+        }
+    }
+
+    @media (max-width: (600px)) {
+        padding-left: 0;
+    }
+
+    @media (max-width: 360px) {
+        margin-bottom: 35px;
+        text-align: center;
+    }
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 20px;
+
+    span {
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    @media (max-width: (1024px)) {
+        width: 80%;
+    }
+
+    @media (max-width: 360px) {
+       width: 100%;
+    }
+}
+
+.name {
+    font-size: 45px;
+    color: #000;
+    font-weight: 700;
+
+    @media (max-width: 360px) {
+        margin-bottom: 20px;
+        font-size: 35px;
+    }
+
+    @media (max-width: 320px) {
+        font-size: 30px;
+    }
+}
+
+.lookingWork {
+    margin-top: 10px;
+    font-size: 20px;
+    color: inherit;
+}
+
+.lookingWork.lookingWork_false  {
+    span {
+        color: #fc7171;
+    }
+}
+
+.lookingWork.lookingWork_true {
+    b {
+        margin-bottom: 25px;
+        font-weight: bold;
+        color: #6ff959;
+    }
+
+    p {
+        font-style: italic;
+    }
+}
+
+.statusContainer {
+    user-select: none; 
+    transition: opacity 0.3s;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
+.noStatus {
+    opacity: 0.5;
+}
+
+.newStatusInput {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #a969eb;
+    box-shadow: 0 1px 4px #b886eb;
+    min-width: 200px;
+    font-size: 20px;
+    caret-color: #860dff;
+}
+
+@keyframes jumpingIcon {
+    from {
+        transform: translate(-55%, 0);
+    }
+
+    to {
+        transform: translate(-55%, -5px);
+    }
+}

@@ -1,0 +1,29 @@
+.container {
+  margin-top: 30px;
+  width: 100%;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    margin-right: 10px;
+    width: 60px;
+    height: 60px;
+  }
+
+  span {
+    font-size: 25px;
+    color: var(--error);
+  }
+
+  @media (max-width: (768px)) {
+    padding: 0;
+  }
+
+  @media (max-width: (360px)) {
+    svg {
+      display: none;
+    }
+  }
+}

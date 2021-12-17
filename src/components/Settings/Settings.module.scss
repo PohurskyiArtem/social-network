@@ -1,0 +1,144 @@
+.title{
+    margin-bottom: 50px;
+    color: var(--medium-purple);
+
+    @media only screen and (max-width : 360px) {
+        display: block;
+        margin-bottom: 25px;
+        min-width: 250px;
+        font-size: 30px;
+    }
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .mainSettings {
+        width: 50%;
+    }
+
+    .contactsContainer {
+        width: 50%;
+    }
+
+    @media only screen and (max-width : 1024px) {
+        padding-left: 75px;
+    }
+
+    @media only screen and (max-width : 768px) {
+        flex-direction: column;
+        padding-left: 50px;
+    }
+
+    @media only screen and (max-width : 600px) {
+        padding-left: 0;
+    }
+}
+
+.fieldContainer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    
+    label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    span {
+        margin-bottom: 10px;
+    }
+
+    &.checkbox {
+        label {
+            flex-direction: row;
+            justify-content: flex-start;
+
+            span {
+                margin-bottom: 0;
+            }
+
+            input {
+                margin-left: 10px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    .errorContainer {
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        bottom: 0;
+        transition: bottom 0.3s;
+
+        span {
+            font-size: 12px;
+            color: var(--error);
+        }
+
+        &.activeError {
+            bottom: -20px;
+            transition: bottom 0.3s;
+        }
+    }
+
+    @media only screen and (max-width : 768px) {
+        input[type="text"], textarea {
+            min-width: 450px;
+        }
+
+        textarea {
+            min-height: 140px;
+        }
+    }
+
+    @media only screen and (max-width : 360px) {
+        input[type="text"], textarea {
+            min-width: 300px;
+        }
+    }
+
+    @media only screen and (max-width : 320px) {
+        input[type="text"], textarea {
+            min-width: 260px;
+        }
+    }
+}
+
+.submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto 0;
+    width: 250px;
+    height: 50px;
+    font-size: 21px;
+
+    svg {
+        margin-left: 5px;
+        width: 35px;
+        height: 35px;
+    }
+
+    &:focus {
+        box-shadow: inset -1px -1px 5px #fff;
+    }
+
+    @media only screen and (max-width : 768px) {
+        width: 70%;
+    }
+
+    @media only screen and (max-width : 360px) {
+        width: 90%;
+    }
+
+    @media only screen and (max-width : 360px) {
+        width: 100%;
+    }
+}

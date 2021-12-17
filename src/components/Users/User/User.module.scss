@@ -1,0 +1,144 @@
+.user {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+
+    a {
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+
+        }
+    }
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    @media only screen and (max-width : 360px) {
+        flex-direction: column;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 35px;
+        height: auto;
+    }
+}
+
+.userLeft{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+
+    @media only screen and (max-width : 360px) {
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.userLeft img {
+    border: 2px solid #9a4fe8;
+    border-radius: 100%;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+
+    @media only screen and (max-width : 360px) {
+        width: 90%;
+        height: auto;
+    }
+}
+
+.userRight {
+    padding: 20px;
+    width: 70%;
+
+    @media only screen and (max-width : 360px) {
+        padding: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.userName {
+    font-size: 45px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #000;
+
+    @media only screen and (max-width : 360px) {
+        font-size: 35px;
+    }
+}
+
+.userStatus {
+    display: block;
+    margin-top: 45px;
+    padding: 5px;
+    padding-left: 0;
+    width: 100%;
+    white-space: nowrap;
+    font-size: 26px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media only screen and (max-width : 360px) {
+        margin-top: 10px;
+    }
+}
+
+.followBtn {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: flex-start;
+    border: none;
+    height: 50px;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 20px;
+
+    &.unfollowed {
+        color: #9a4fe8;        
+    }
+
+    &.followed {
+        color: inherit;
+    }
+
+    use {
+        fill: currentColor;
+    }
+
+    &:hover {
+        opacity: 0.7;
+        transition: opacity 0.3s;
+        cursor: pointer;
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: progress;
+    }
+
+    svg {
+        margin-right: 10px;
+    }
+
+    @media only screen and (max-width : 360px) {
+        justify-content: flex-end;
+
+        svg {
+            margin: 0;
+        }
+    }
+}
+
