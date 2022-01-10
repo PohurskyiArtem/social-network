@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Redirect } from "react-router";
 import { useForm } from "react-hook-form";
-import { login } from '../../redux/auth-reducer';
+import { login } from '../../redux/auth-reducer.ts';
 import { CheckBox, Input } from "../common/formsControls/FormsControls";
 import styles from "./Login.module.scss";
 import cn from "classnames";

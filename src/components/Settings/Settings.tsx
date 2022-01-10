@@ -6,9 +6,16 @@ import styles from "./Settings.module.scss";
 import Loader from "../common/Loader/Loader";
 import ProfileEditor from "./ProfileEditor";
 import { CloseSidebar } from "../../hoc/CloseSidebar";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { ProfileType } from "../../redux/types";
+import { AppStateType } from "../../redux/store";
 
-const Settings = ({profile, saveProfile}) => {   
+type PropsType = {
+    profile: ProfileType,
+    saveProfile: () => void
+}
+
+const Settings:FC<PropsType> = ({profile, saveProfile}) => {   
     const [isProfileLoaded, setProfileLoaded] = useState(false);
     
     useEffect(() => {
@@ -29,7 +36,7 @@ const Settings = ({profile, saveProfile}) => {
     )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:AppStateType) => ({
     userId: state.auth.userId,
     profile: state.profilePage.ownerProfile
 })

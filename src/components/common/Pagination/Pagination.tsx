@@ -2,10 +2,15 @@ import styles from "./Pagination.module.scss";
 import PageLink from "./PageLink";
 import UserInput from "./UserInput";
 import cn from "classnames";
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 
+type PropsType = {
+    currentPage: number, 
+    pagesNumbers: Array<number>, 
+    onPageChanged: (pageNumber: number) => void
+}
 
-const Pagination = ({ currentPage, pagesNumbers, onPageChanged }) => {
+const Pagination: FC<PropsType> = ({ currentPage, pagesNumbers, onPageChanged }) => {
     return (
         <div className={styles.paginationContainer}>
             <div className={styles.pagination}>
@@ -80,6 +85,6 @@ const Pagination = ({ currentPage, pagesNumbers, onPageChanged }) => {
     )
 }
 
-const DotsBetweenPags = (props) => <span className={styles.dotsWithinPags} key={props.key}>...</span>
+const DotsBetweenPags = () => <span className={styles.dotsWithinPags}>...</span>
 
 export default Pagination;

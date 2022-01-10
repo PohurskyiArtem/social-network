@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Textarea } from '../../common/formsControls/FormsControls';
 import Info from '../../common/Info/Info';
 import { connect } from 'react-redux';
-import { addPost } from '../../../redux/profile-reducer';
+import { addPost } from '../../../redux/profile-reducer.ts';
 import { maxLenghtCreator } from '../../../utils/validators';
 
 const AddPostForm = ({onSubmit}) => {
@@ -38,7 +38,6 @@ const MyPosts = React.memo(({posts, addPost, profile}) => {
     const addNewPost = (values) => {
         addPost(avatar, values.newPostbody);
     }
-    console.log(posts)
 
     return (
         <section className={styles.myPosts}>

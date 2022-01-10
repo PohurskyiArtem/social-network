@@ -1,3 +1,7 @@
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store";
+import { FriendType } from "./types";
+
 const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
 
 let initialState = {
@@ -23,10 +27,12 @@ let initialState = {
           id: 5,
           name: "Lesha Domachuk"
         }
-      ]
+      ] as Array<FriendType>
 }
 
-const sidebarReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+const sidebarReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case TOGGLE_SIDEBAR:
     return {
@@ -39,13 +45,21 @@ const sidebarReducer = (state = initialState, action) => {
   }
 }
 
-export const toggleSidebarAC = (isOpen) => ({
+type ActionType = ToggleSidebarActionType;
+
+type ToggleSidebarActionType = {
+  type: typeof TOGGLE_SIDEBAR
+  payload: boolean
+}
+export const toggleSidebarAC = (isOpen:boolean):ToggleSidebarActionType => ({
   type: TOGGLE_SIDEBAR,
   payload: isOpen
 });
 
-export const toggleSidebar = (isOpen) => dispatch => {
-  dispatch(toggleSidebarAC(isOpen));
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+
+export const toggleSidebar = (isOpen:boolean): ThunkType => async (dispatch) => {
+  dispatch(toggleSidebarAC(isOpen)); 
 }
 
 export default sidebarReducer;

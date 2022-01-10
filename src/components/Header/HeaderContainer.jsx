@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Header from "./Header";
-import { logout } from "../../redux/auth-reducer";
-import { toggleSidebar } from  "../../redux/sidebar-reducer"; 
+import { logout } from "../../redux/auth-reducer.ts";
+import { toggleSidebar } from  "../../redux/sidebar-reducer.ts"; 
 import { useEffect, useState } from 'react';
 
 const HeaderContainer = props => {

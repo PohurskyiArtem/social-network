@@ -1,3 +1,7 @@
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store";
+import { DialogType, MessageType } from "./types";
+
 const ADD_MESSAGE = "ADD-MESSAGE-TO-DIALOG_TEST";
 
 let initialState = {
@@ -27,7 +31,7 @@ let initialState = {
       userId: 99995, 
       name: "Olga",
     },
-  ],
+  ] as Array<DialogType>,
   messagesData: [
     {
       messageId: 1,
@@ -65,10 +69,12 @@ let initialState = {
       userId: 18640,
       messageText: "My to =))",
     }
-  ]
+  ] as Array<MessageType>
 };
 
-const dialogsReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+const dialogsReducer = (state = initialState, action: ActionType):InitialStateType => {
   switch (action.type) {
     case ADD_MESSAGE:
       return {
@@ -88,9 +94,20 @@ const dialogsReducer = (state = initialState, action) => {
 
 export default dialogsReducer;
 
-const addMessage = (dialogsId, userId, messageText) => ({ type: ADD_MESSAGE, dialogsId, userId, messageText });
+type ActionType = addMessageActionType;
 
-export const createMessage = (dialogsId, messageText) => (dispatch, getState) => {
+type addMessageActionType = {
+  type: typeof ADD_MESSAGE
+  dialogsId: number
+  userId: number | null
+  messageText: string
+}
+
+const addMessage = (dialogsId: number, userId: number | null, messageText: string):addMessageActionType => ({ type: ADD_MESSAGE, dialogsId, userId, messageText });
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+
+export const createMessage = (dialogsId:number, messageText: string): ThunkType => async(dispatch, getState) => {
   const userId = getState().auth.userId;
   dispatch(addMessage(dialogsId, userId, messageText))
 }

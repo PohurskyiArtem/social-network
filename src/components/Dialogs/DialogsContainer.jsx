@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { useState, useEffect } from 'react';
 
 import Dialogs from "./Dialogs";
-import { createMessage } from '../../redux/dialogs-reducer';
+import { createMessage } from '../../redux/dialogs-reducer.ts';
 import { WithAuthRedirect } from '../../hoc/WithAuthRedirect';
 import Loader from '../common/Loader/Loader';
 import { CloseSidebar } from '../../hoc/CloseSidebar';

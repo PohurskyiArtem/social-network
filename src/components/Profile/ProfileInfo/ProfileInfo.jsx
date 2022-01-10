@@ -12,7 +12,6 @@ const ProfileInfo = ({profile: {photos, fullName, lookingForAJob, lookingForAJob
             uploadPhoto(e.target.files[0]);
         }
     }
-
     return (
         <section className={styles.profile}>
             <div className={styles.userInfo}>

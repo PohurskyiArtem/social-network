@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { toggleSidebar } from "../redux/sidebar-reducer";
+import { toggleSidebar } from "../redux/sidebar-reducer.ts";
 
 export const CloseSidebar = Component => {
     

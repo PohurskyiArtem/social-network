@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Profile from "./Profile";
 import Loader from "../common/Loader/Loader";
-import { getUserProfile, getUserStatus, updateStatus, uploadPhoto, setUserProfile } from "../../redux/profile-reducer";
+import { getUserProfile, getUserStatus, updateStatus, uploadPhoto, setUserProfile } from "../../redux/profile-reducer.ts";
 import { withRouter } from 'react-router-dom';
 import { WithAuthRedirect } from '../../hoc/WithAuthRedirect';
 import { compose } from 'redux';
@@ -24,7 +24,7 @@ const ProfileContainer = ({match, getUserProfile, getUserStatus, dispatch, setUs
         ? <Loader /> 
         : <Profile 
             {...props}
-            profile={profile ?? ownerProfile}
+            profile={profile ? profile : ownerProfile}
             isOwner={!match.params.userID}
             />
 }

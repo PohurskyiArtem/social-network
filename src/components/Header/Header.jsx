@@ -9,8 +9,8 @@ const Header = ({isAuth, userName, logout, isOpen, toggleSidebar, isVisible, set
     return (
         <header className={cn({[styles.header]: true, [styles.hide]: isVisible})}>
             <MenuButton isOpen={isOpen} onClickFunction={toggleSidebar} />
-            <h1 className={styles.title}><span>S</span>ocial N<span></span>etwor<span>k</span></h1>
-            <h1 className={styles.shortTitle}><span>S</span>N</h1>
+            <NavLink to={'/profile'} className={styles.title}><h1><span>S</span>ocial N<span></span>etwor<span>k</span></h1></NavLink>
+            <NavLink to={'/profile'} className={styles.shortTitle}><h1><span>S</span>N</h1></NavLink>
 
             <div className={styles.loginBlock}>
                 {isAuth ? 

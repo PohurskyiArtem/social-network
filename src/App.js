@@ -3,7 +3,7 @@ import { lazy, useEffect } from "react";
 import { connect } from "react-redux";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import { initializeApp } from "./redux/app-reducer";
+import { initializeApp } from "./redux/app-reducer.ts";
 import { compose } from "redux";
 import { WithSuspense } from "./hoc/WithSuspense";
 import "./App.scss";
