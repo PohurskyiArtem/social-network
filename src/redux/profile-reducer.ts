@@ -111,10 +111,10 @@ type AddPostActionType = {
   avatar: string
   newPostbody: string
 }
-export const addPost = (avatar:string, newPostbody:string):AddPostActionType => ({
+export const addPost = (newPostbody:string, avatar:string):AddPostActionType => ({
   type: ADD_POST,
-  avatar,
   newPostbody,
+  avatar
 });
 
 type SetUserProfileActionType = {
@@ -203,9 +203,11 @@ const getStatus = async (dispatch:any, id:number, actionCreator:any) => {
 
 // Thunks creators
 
-export const getUserProfile = (id:number) => (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setUserProfile);
+export const addNewPost = (newPostbody: string, avatar: string) => async (dispatch: Dispatch<ActionType>) => dispatch(addPost(newPostbody, avatar))
 
-export const getOwnerProfile = (id:number) => (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setOwnerProfile);
+export const getUserProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setUserProfile);
+
+export const getOwnerProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setOwnerProfile);
 
 export const getUserStatus = (userId:number) => async (dispatch: Dispatch<ActionType>) => getStatus(dispatch, userId, setUserStatus)
 
@@ -237,7 +239,6 @@ export const uploadPhoto = (photo:any): ThunkType => async (dispatch) => {
 export const saveProfile = (profile:ProfileType): ThunkType => async (dispatch, getState) => {
   const userId = getState().auth.userId;
   let { data } = await profileAPI.saveProfile(profile);
-  console.log(data)
   if (data.resultCode ===  ResultCodeEnum.Succes) {
     if(userId !== null) dispatch(getOwnerProfile(userId));
     toast.success("Profile updated");

@@ -1,19 +1,24 @@
 import { useForm } from "react-hook-form";
-import { maxLenghtCreator } from "../../utils/validators/index.js";
 import { CheckBox, Input, Textarea } from "../common/formsControls/FormsControls";
 import styles from "./Settings.module.scss";
 import cn from "classnames";
 import Icon from "../common/Icon/Icon";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { ProfileType, SubmitError } from "../../redux/types";
 
-const ProfileEditor = ({saveProfile, profile}) => {
+type ProfileEditorPropsType = {
+    saveProfile: (profile: ProfileType) => void,
+    profile: ProfileType
+}
+
+const ProfileEditor:FC<ProfileEditorPropsType> = ({saveProfile, profile}) => {
     const { register, handleSubmit, formState: { errors }, clearErrors } = useForm({
         defaultValues: {...profile}
     })
 
-    const [submitError, setSubmitError] = useState(null);
+    const [submitError, setSubmitError] = useState(null as null | SubmitError);
 
-    const catchError = error => {
+    const catchError = (error: string) => {
         //checking if error is invalid contact URL      
         if(error.includes("Invalid url")) {
             const contactFieldName = error.split(">")[1].slice(0, -1).toLowerCase();
@@ -45,12 +50,12 @@ const ProfileEditor = ({saveProfile, profile}) => {
                             <span>Full Name:</span>
                             <Input 
                                 type={"text"}
-                                label={"fullName"}
+                                name={"fullName"}
                                 placeholder={"Enter your name"}
                                 errors={errors}
                                 register={register}
                                 required
-                                maxLength={maxLenghtCreator(100)}
+                                maxLength={100}
                                 onBlur={() => clearErrors()}
                             />
                         </label>
@@ -59,11 +64,11 @@ const ProfileEditor = ({saveProfile, profile}) => {
                         <label>
                             <span>About me:</span>
                             <Textarea
-                                label={"aboutMe"}
+                                name={"aboutMe"}
                                 placeholder={"About you info"}
                                 errors={errors}
                                 register={register}
-                                maxLength={maxLenghtCreator(315)}
+                                maxLength={315}
                             />
                         </label>
                     </div>
@@ -72,7 +77,7 @@ const ProfileEditor = ({saveProfile, profile}) => {
                             <span>Looking for a job:</span>
                             <CheckBox 
                                 type={"checkbox"}
-                                label={"lookingForAJob"}
+                                name={"lookingForAJob"}
                                 register={register}
                             />
                         </label>
@@ -81,11 +86,11 @@ const ProfileEditor = ({saveProfile, profile}) => {
                         <label>
                             <span>My professional skills:</span>
                             <Textarea
-                                label={"lookingForAJobDescription"}
+                                name={"lookingForAJobDescription"}
                                 placeholder={"Your skills"}
                                 errors={errors}
                                 register={register}
-                                maxLength={maxLenghtCreator(100)}
+                                maxLength={100}
                             />
                         </label>
                     </div>
@@ -103,11 +108,11 @@ const ProfileEditor = ({saveProfile, profile}) => {
                                     <span>{key}</span>
                                     <Input 
                                         type={"text"}
-                                        label={"contacts." + key}
+                                        name={"contacts." + key}
                                         placeholder={key}
                                         errors={errors}
                                         register={register}
-                                        maxLength={maxLenghtCreator(250)}
+                                        maxLength={250}
                                         onBlur={() => clearErrors()}
                                         isErrorStyle={invalidUrl}
                                     />

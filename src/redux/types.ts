@@ -1,7 +1,7 @@
 export type PostType = {
     id: number
     postText: string
-    image: string | null
+    image: string
 }
 
 export type ContactsType = {
@@ -55,3 +55,14 @@ export type MessageType = {
     userId: number | null
     messageText: string
   } 
+
+export type SubmitError = {
+    type: string
+    text?: string
+    name?: string
+}
+
+export type NewPostData = {
+    newPostbody: string
+    avatar: string
+}

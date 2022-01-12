@@ -3,15 +3,19 @@ import Message from "./Message";
 import { useForm } from "react-hook-form";
 import cn from "classnames";
 import { Textarea } from "../../common/formsControls/FormsControls";
-import { maxLenghtCreator } from "../../../utils/validators/index";
 import Image from "../../common/Image/Image";
 
 import ChatImg from "../../../assets/images/messages.png";
-import { useRef, useEffect} from "react";
+import { useRef, useEffect, FC} from "react";
+import { MessageType } from "../../../redux/types";
 
-const AddMessageForm = ({addMessage}) => {
+type addMessageType = {
+    addMessage: any
+}
+
+const AddMessageForm:FC<addMessageType> = ({addMessage}) => {
     const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm();
-    const onSubmit = (data) => {
+    const onSubmit = (data:any) => {
         addMessage(data);
         reset();
     }
@@ -21,9 +25,9 @@ const AddMessageForm = ({addMessage}) => {
                 register={register}
                 errors={errors}
                 required
-                maxLength={maxLenghtCreator(750)}
+                maxLength={750}
                 placeholder="Message text..."
-                label={"newMessageBody"}
+                name={"newMessageBody"}
                 onBlur={() => clearErrors()} 
                 onKeyPress={event => event.key === 'Enter' && handleSubmit(onSubmit)()}
             />
@@ -32,13 +36,21 @@ const AddMessageForm = ({addMessage}) => {
     )
 }
 
-const Chat = ({addMessage, messages, ownerId}) => {
-    const scrollRef = useRef(null); 
+type ChatPropsType = {
+    addMessage: any,
+    messages: Array<MessageType>,
+    ownerId: number | null
+}
+
+const Chat:FC<ChatPropsType> = ({addMessage, messages, ownerId}) => {
+    const scrollRef = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
         if(scrollRef.current) {
             const executeScroll = () => {
-                scrollRef.current.scrollIntoView()
+                if(scrollRef?.current) {
+                    scrollRef.current.scrollIntoView()
+                }
             }
     
             executeScroll();
