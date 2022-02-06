@@ -1,19 +1,18 @@
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
 import { ResultCodeEnum } from "../api/api";
 import { profileAPI } from "../api/profile-api";
-import { AppStateType } from "./store";
+import { BaseThunkType, InfernActionsTypes } from "./store";
 import { PhotosType, PostType, ProfileType } from "./types";
 
-const ADD_POST = "PROFILE_PAGE__ADD_POST",
-  SET_USER_PROFILE = "PROFILE_PAGE__SET_USER_PROFILE",
-  TOGGLE_PROFILE_LOADING = "PROFILE_PAGE__TOGGLE_PROFILE_LOADING",
-  SET_USER_STATUS = "PROFILE_PAGE__SET_USER_STATUS",
-  DELETE_POST = "PROFILE_PAGE__DELETE_POST",
-  UPLOAD_PHOTO = "PROFILE_PAGE__UPLOAD_PHOTO",
-  SET_OWNER_PROFILE = "SET_OWNER_PROFILE",
-  SET_OWNER_STATUS = "SET_OWNER_STATUS";
+const ADD_POST = "SN/PROFILE/ADD_POST",
+  SET_USER_PROFILE = "SN/PROFILE/SET_USER_PROFILE",
+  TOGGLE_PROFILE_LOADING = "SN/PROFILE/TOGGLE_PROFILE_LOADING",
+  SET_USER_STATUS = "SN/PROFILE/SET_USER_STATUS",
+  DELETE_POST = "SN/PROFILE/DELETE_POST",
+  UPLOAD_PHOTO = "SN/PROFILE/UPLOAD_PHOTO",
+  SET_OWNER_PROFILE = "SN/PROFILE/SET_OWNER_PROFILE",
+  SET_OWNER_STATUS = "SN/PROFILE/SET_OWNER_STATUS";
 
 let initialState = {
   postsData: [
@@ -104,95 +103,29 @@ export default profileReducer;
 
 // Action creators
 
-type ActionType = AddPostActionType | SetUserProfileActionType | SetOwnerProfileActionType | 
- ToggleProfileLoadingActionType | SetUserStatusActionType | SetOwnerStatusActionType | DeletePostActionType | UploadPhotoSuccessActionType
+type ActionType = InfernActionsTypes<typeof actions>
 
-type AddPostActionType = {
-  type: typeof ADD_POST
-  avatar: string
-  newPostbody: string
+export const actions = {
+  addPost: (newPostbody:string, avatar:string) => ({type: ADD_POST, newPostbody, avatar} as const),
+  setUserProfile: (profile:ProfileType) => ({type: SET_USER_PROFILE, profile} as const),
+  setOwnerProfile: (profile:ProfileType) => ({type: SET_OWNER_PROFILE, profile} as const),
+  toggleProfileLoading: (isProfileLoading:boolean) => ({type: TOGGLE_PROFILE_LOADING, isProfileLoading} as const),
+  setUserStatus: (status: string) => ({type: SET_USER_STATUS, status} as const),
+  setOwnerStatus: (status: string) => ({type: SET_OWNER_STATUS, status} as const),
+  deletePost: (id:number) => ({type: DELETE_POST, id} as const),
+  uploadPhotoSuccess: (photos:PhotosType) => ({type: UPLOAD_PHOTO, photos} as const)  
 }
-export const addPost = (newPostbody:string, avatar:string):AddPostActionType => ({
-  type: ADD_POST,
-  newPostbody,
-  avatar
-});
 
-type SetUserProfileActionType = {
-  type: typeof SET_USER_PROFILE
-  profile: ProfileType
-}
-export const setUserProfile = (profile:ProfileType):SetUserProfileActionType => {
-  return {
-    type: SET_USER_PROFILE,
-    profile,
-  }
-};
-
-type SetOwnerProfileActionType = {
-  type: typeof SET_OWNER_PROFILE
-  profile: ProfileType
-}
-export const setOwnerProfile = (profile:ProfileType):SetOwnerProfileActionType => ({
-  type: SET_OWNER_PROFILE,
-  profile,
-});
-
-type ToggleProfileLoadingActionType = {
-  type: typeof TOGGLE_PROFILE_LOADING
-  isProfileLoading: boolean
-}
-export const toggleProfileLoading = (isProfileLoading:boolean):ToggleProfileLoadingActionType => ({
-  type: TOGGLE_PROFILE_LOADING,
-  isProfileLoading,
-});
-
-type SetUserStatusActionType = {
-  type: typeof SET_USER_STATUS,
-  status: string
-}
-export const setUserStatus = (status: string):SetUserStatusActionType => ({
-  type: SET_USER_STATUS,
-  status,
-});
-
-type SetOwnerStatusActionType = {
-  type: typeof SET_OWNER_STATUS,
-  status: string
-}
-export const setOwnerStatus = (status: string):SetOwnerStatusActionType => ({
-  type: SET_OWNER_STATUS,
-  status,
-});
-
-type DeletePostActionType = {
-  type: typeof DELETE_POST
-  id: number
-}
-export const deletePost = (id:number):DeletePostActionType => ({
-  type: DELETE_POST,
-  id,
-});
-
-type UploadPhotoSuccessActionType = {
-  type: typeof UPLOAD_PHOTO,
-  photos: PhotosType
-}
-export const uploadPhotoSuccess = (photos:PhotosType):UploadPhotoSuccessActionType => ({
-  type: UPLOAD_PHOTO,
-  photos,
-});
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+type ThunkType = BaseThunkType<ActionType>;
 
 export const getProfile = async (dispatch:any, id:number, actionCreator:any) => {
-  dispatch(toggleProfileLoading(true));
+  dispatch(actions.toggleProfileLoading(true));
 
   let response = await profileAPI.getProfile(id);
   if(response) {
     dispatch(actionCreator(response));
 
-    dispatch(toggleProfileLoading(false));
+    dispatch(actions.toggleProfileLoading(false));
   }
   
 };
@@ -204,20 +137,20 @@ const getStatus = async (dispatch:any, id:number, actionCreator:any) => {
 
 // Thunks creators
 
-export const addNewPost = (newPostbody: string, avatar: string) => async (dispatch: Dispatch<ActionType>) => dispatch(addPost(newPostbody, avatar))
+export const addNewPost = (newPostbody: string, avatar: string) => async (dispatch: Dispatch<ActionType>) => dispatch(actions.addPost(newPostbody, avatar))
 
-export const getUserProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setUserProfile);
+export const getUserProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, actions.setUserProfile);
 
-export const getOwnerProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, setOwnerProfile);
+export const getOwnerProfile = (id:number) => async (dispatch: Dispatch<ActionType>) => getProfile(dispatch, id, actions.setOwnerProfile);
 
-export const getUserStatus = (userId:number) => async (dispatch: Dispatch<ActionType>) => getStatus(dispatch, userId, setUserStatus)
+export const getUserStatus = (userId:number) => async (dispatch: Dispatch<ActionType>) => getStatus(dispatch, userId, actions.setUserStatus)
 
-export const getOwnerStatus = (userId:number) => async (dispatch: Dispatch<ActionType>) => getStatus(dispatch, userId, setOwnerStatus)
+export const getOwnerStatus = (userId:number) => async (dispatch: Dispatch<ActionType>) => getStatus(dispatch, userId, actions.setOwnerStatus)
 
 export const updateStatus = (status:string): ThunkType => async (dispatch) => {
   let response = await profileAPI.updateStatus(status);
   if (response.data.resultCode === ResultCodeEnum.Succes) {
-    dispatch(setOwnerStatus(status));
+    dispatch(actions.setOwnerStatus(status));
     toast.success("Status updated");
   } else {
     let message = response.data.messages!.length > 0 ? response.data.messages![0] : "Some error";
@@ -226,10 +159,10 @@ export const updateStatus = (status:string): ThunkType => async (dispatch) => {
   }
 };
 
-export const uploadPhoto = (photo:any): ThunkType => async (dispatch) => {
+export const uploadPhoto = (photo: File): ThunkType => async (dispatch) => {
   let response = await profileAPI.uploadPhoto(photo);
   if (response.data.resultCode ===  ResultCodeEnum.Succes) {
-    dispatch(uploadPhotoSuccess(response.data.data));
+    dispatch(actions.uploadPhotoSuccess(response.data.data));
     toast.success("Photo updated");
   } else {
     let message = response.data.messages!.length > 0 ? response.data.messages![0] : "Some error";

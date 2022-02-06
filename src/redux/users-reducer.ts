@@ -1,19 +1,18 @@
 import { Dispatch } from "redux";
-import { ThunkAction } from "redux-thunk";
 import { followAPI } from "../api/follow-api";
 import { usersAPI } from "../api/users-api";
 import { updateObjectInArray } from "../utils/functions/updateObjectInArray";
-import { AppStateType, InfernActionsTypes } from "./store";
+import { BaseThunkType, InfernActionsTypes } from "./store";
 import { UserType } from "./types";
 
-// // Action type constants
+// Action type constants
 
-// const FOLLOW = "FOLLOW",
-//   UNFOLLOW = "UNFOLLOW",
-//   SET_USERS = "SET_USERS",
-//   SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
-//   SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT",
-//   TOGGLE_IS_FOLLOWING = "TOGGLE_IS_FOLLOWING";
+const FOLLOW = "SN/USERS/FOLLOW",
+  UNFOLLOW = "SN/USERS/UNFOLLOW",
+  SET_USERS = "SN/USERS/SET_USERS",
+  SET_CURRENT_PAGE = "SN/USERS/SET_CURRENT_PAGE",
+  SET_TOTAL_USERS_COUNT = "SN/USERS/SET_TOTAL_USERS_COUNT",
+  TOGGLE_IS_FOLLOWING = "SN/USERS/TOGGLE_IS_FOLLOWING";
 
 // Initial state for Users component 
 
@@ -32,37 +31,37 @@ export type InitialStateType = typeof initialState;
 
 export const usersReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-    case 'FOLLOW':
+    case FOLLOW:
       return {
         ...state,
         users: updateObjectInArray(state.users, action.userId, "id", { followed: true })
       };
 
-    case 'UNFOLLOW':
+    case UNFOLLOW:
       return {
         ...state,
         users: updateObjectInArray(state.users, action.userId, "id", { followed: false })
       };
 
-    case 'SET_USERS':
+    case SET_USERS:
       return {
         ...state,
         users: action.users,
       };
 
-    case 'SET_CURRENT_PAGE':
+    case SET_CURRENT_PAGE:
       return {
         ...state,
         currentPage: action.pageNumber,
       };
 
-    case 'SET_TOTAL_USERS_COUNT':
+    case SET_TOTAL_USERS_COUNT:
       return {
         ...state,
         totalUsersCount: action.count,
       };
 
-    case 'TOGGLE_IS_FOLLOWING':
+    case TOGGLE_IS_FOLLOWING:
       return {
         ...state,
         followingInProgress: action.isFollowingToggle
@@ -82,51 +81,17 @@ type ActionType = InfernActionsTypes<typeof actions>
 // Actions creators
 
 export const actions = {
-  followSuccess: (userId: number) => ({type: 'FOLLOW', userId} as const),
-  unFollowSuccess: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
-  setUsers: (users: Array<UserType>) => ({type: 'SET_USERS', users} as const),
-  setCurrentPage: (pageNumber: number) => ({type: 'SET_CURRENT_PAGE', pageNumber} as const),
-  setTotalUsersCount: (count: number) => ({type: 'SET_TOTAL_USERS_COUNT', count} as const),
-  toggleIsFollowing: (isFollowingToggle: boolean, userId: number) => ({type: 'TOGGLE_IS_FOLLOWING', isFollowingToggle, userId} as const)
+  followSuccess: (userId: number) => ({type: FOLLOW, userId} as const),
+  unFollowSuccess: (userId: number) => ({type: UNFOLLOW, userId} as const),
+  setUsers: (users: Array<UserType>) => ({type: SET_USERS, users} as const),
+  setCurrentPage: (pageNumber: number) => ({type: SET_CURRENT_PAGE, pageNumber} as const),
+  setTotalUsersCount: (count: number) => ({type: SET_TOTAL_USERS_COUNT, count} as const),
+  toggleIsFollowing: (isFollowingToggle: boolean, userId: number) => ({type: TOGGLE_IS_FOLLOWING, isFollowingToggle, userId} as const)
 }
-
-// export const followSuccess = (userId: number): FollowSuccessActionType => ({
-//   type: FOLLOW,
-//   userId,
-// });
-
-// export const unFollowSuccess = (userId: number): UnFollowSuccessActionType => ({
-//   type: UNFOLLOW,
-//   userId,
-// });
-
-// export const setUsers = (users: Array<UserType>): SetUsersActionType => ({
-//   type: SET_USERS,
-//   users,
-// });
-
-// export const setCurrentPage = (pageNumber: number): SetCurrentPageActionType => ({
-//   type: SET_CURRENT_PAGE,
-//   pageNumber,
-// });
-
-// export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({
-//   type: SET_TOTAL_USERS_COUNT,
-//   count,
-// });
-
-// export const toggleIsFollowing = (isFollowingToggle: boolean, userId: number): ToggleIsFollowingActionType => ({
-//   type: TOGGLE_IS_FOLLOWING,
-//   isFollowingToggle,
-//   userId,
-// });
-
-
-
 
 // Thunks creators
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+type ThunkType = BaseThunkType<ActionType>;
 
 export const requestUsers = (currentPage: number, pageSize: number): ThunkType => async (dispatch) => {
   dispatch(actions.setCurrentPage(currentPage))

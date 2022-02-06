@@ -1,17 +1,14 @@
-import { ThunkAction } from 'redux-thunk';
 import { authMe } from "./auth-reducer";
 import { getOwnerProfile, getOwnerStatus } from "./profile-reducer";
-import { AppStateType } from './store';
+import { BaseThunkType, InfernActionsTypes } from './store';
 
-const SET_INITIALIZING_APP = "SET_INITIALIZED_APP";
+const SET_INITIALIZING_APP = "SN/APP/SET_INITIALIZED_APP";
 
-export type InitializeStateType = {
-  initialized: boolean
-}
-
-let initialState: InitializeStateType = {
+let initialState = {
   initialized: false
 };
+
+export type InitializeStateType = typeof initialState
 
 const appReducer = (state: InitializeStateType = initialState, action: ActionType): InitializeStateType => {
   switch (action.type) {
@@ -28,19 +25,15 @@ const appReducer = (state: InitializeStateType = initialState, action: ActionTyp
 
 //action creators
 
-type ActionType = InitializedSuccessActionType
+type ActionType = InfernActionsTypes<typeof actions>
 
-type InitializedSuccessActionType = {
-  type: typeof SET_INITIALIZING_APP
+export const actions = {
+  initializedSuccess: () => ({type: SET_INITIALIZING_APP})
 }
-
-export const initializedSuccess = ():InitializedSuccessActionType => ({
-  type: SET_INITIALIZING_APP
-});
 
 //thunk creators
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+type ThunkType = BaseThunkType<ActionType>;
 
 export const initializeApp = ():ThunkType => async (dispatch) => {
     Promise.all([
@@ -51,7 +44,7 @@ export const initializeApp = ():ThunkType => async (dispatch) => {
           dispatch(getOwnerProfile(id[0]));
           dispatch(getOwnerStatus(id[0]));
         }
-        dispatch(initializedSuccess());
+        dispatch(actions.initializedSuccess());
       });    
   };
 

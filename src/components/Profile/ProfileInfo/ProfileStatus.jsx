@@ -12,7 +12,9 @@ const ProfileStatusWithHooks = ({status, isOwner, updateStatus}) => {
 
         deactivateEditMode = () => {
             setEditMode(false);
-            updateStatus(localStatus).catch(() => setLocalStatus(status));
+            if(status !== localStatus) {
+                updateStatus(localStatus).catch(() => setLocalStatus(status));
+            }
         },
 
         onStatusChange = (e) => {
@@ -26,7 +28,6 @@ const ProfileStatusWithHooks = ({status, isOwner, updateStatus}) => {
 
     return (
         <div>
-            {/* <ToastContainer /> */}
             {!editMode ?
                 (
                     <div className={styles.statusContainer}>

@@ -1,8 +1,7 @@
-import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "./store";
+import { BaseThunkType, InfernActionsTypes } from "./store";
 import { DialogType, MessageType } from "./types";
 
-const ADD_MESSAGE = "ADD-MESSAGE-TO-DIALOG_TEST";
+const ADD_MESSAGE = "SN/DIALOGS/ADD-MESSAGE-TO-DIALOG_TEST";
 
 let initialState = {
   dialogsData: [
@@ -94,20 +93,15 @@ const dialogsReducer = (state = initialState, action: ActionType):InitialStateTy
 
 export default dialogsReducer;
 
-type ActionType = addMessageActionType;
+type ActionType = InfernActionsTypes<typeof actions>;
 
-type addMessageActionType = {
-  type: typeof ADD_MESSAGE
-  dialogsId: number
-  userId: number | null
-  messageText: string
+const actions = {
+  addMessage: (dialogsId: number, userId: number | null, messageText: string) => ({ type: ADD_MESSAGE, dialogsId, userId, messageText } as const)
 }
 
-const addMessage = (dialogsId: number, userId: number | null, messageText: string):addMessageActionType => ({ type: ADD_MESSAGE, dialogsId, userId, messageText });
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionType>;
+type ThunkType = BaseThunkType<ActionType>;
 
 export const createMessage = (dialogsId:number, messageText: string): ThunkType => async(dispatch, getState) => {
   const userId = getState().auth.userId;
-  dispatch(addMessage(dialogsId, userId, messageText))
+  dispatch(actions.addMessage(dialogsId, userId, messageText))
 }

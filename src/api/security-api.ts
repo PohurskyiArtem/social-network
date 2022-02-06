@@ -1,14 +1,10 @@
-import { instance } from "./api"
+import { instance, ResponseType } from "./api"
 
-type CaptchaType = {
-    data: {
-        url: string
-    }
-}
+type CaptchaType = {url: string}
 export const securityAPI = {
     endpoint: 'security/',
 
     getCaptcha () {
-        return instance.get<CaptchaType>(this.endpoint + "get-captcha-url").then(response => response.data)
+        return instance.get<ResponseType<CaptchaType>>(this.endpoint + "get-captcha-url").then(response => response.data)
     }
 }
