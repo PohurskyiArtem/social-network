@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { profileAPI, ResultCodeEnum } from "../api/api";
+import { ResultCodeEnum } from "../api/api";
+import { profileAPI } from "../api/profile-api";
 import { AppStateType } from "./store";
 import { PhotosType, PostType, ProfileType } from "./types";
 
@@ -219,7 +220,7 @@ export const updateStatus = (status:string): ThunkType => async (dispatch) => {
     dispatch(setOwnerStatus(status));
     toast.success("Status updated");
   } else {
-    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+    let message = response.data.messages!.length > 0 ? response.data.messages![0] : "Some error";
     toast.error(message);
     throw new Error();
   }
@@ -231,7 +232,7 @@ export const uploadPhoto = (photo:any): ThunkType => async (dispatch) => {
     dispatch(uploadPhotoSuccess(response.data.data));
     toast.success("Photo updated");
   } else {
-    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+    let message = response.data.messages!.length > 0 ? response.data.messages![0] : "Some error";
     toast.error(message);
   }
 };
@@ -243,7 +244,7 @@ export const saveProfile = (profile:ProfileType): ThunkType => async (dispatch, 
     if(userId !== null) dispatch(getOwnerProfile(userId));
     toast.success("Profile updated");
   } else {
-    let message = data.messages.length > 0 ? data.messages[0] : "Some error";
+    let message = data.messages!.length > 0 ? data.messages![0] : "Some error";
     throw message;
   }
 };

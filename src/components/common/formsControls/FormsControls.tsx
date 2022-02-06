@@ -4,6 +4,9 @@ import Icon from "../Icon/Icon";
 import { FC, InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 import { maxLenghtCreator } from "../../../utils/validators";
 
+// type ErrorType = {
+
+// }
 interface InputType extends InputHTMLAttributes<HTMLInputElement> {
     name: string
     register: any

@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import Users from "./Users";
 import Loader from "../common/Loader/Loader";
 import { connect } from 'react-redux';
-import { follow, unFollow, setCurrentPage, requestUsers } from './../../redux/users-reducer';
+import { follow, unFollow, requestUsers } from './../../redux/users-reducer';
 import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getFollowingInProgress } from "../../redux/users-selectors";
 import { compose } from "redux";
 import { WithAuthRedirect } from "../../hoc/WithAuthRedirect";
@@ -19,7 +19,6 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    setCurrentPage: (pageNumber: number) => void,
     requestUsers: (currentPage: number, pageSize: number) => any
     follow: (id: number) => void
     unFollow: (id: number) => void
@@ -31,7 +30,7 @@ type OwnPropsType = {
 
 type PropsType = MapStatePropsType & MapDispatchPropsType;
 
-const UsersContainer: FC<PropsType> = ({currentPage, setCurrentPage, pageSize, users, requestUsers, ...props}) => {
+const UsersContainer: FC<PropsType> = ({currentPage, pageSize, users, requestUsers, ...props}) => {
 
     const [isFetching, toggleIsFetching] = useState<boolean>(false);
 
@@ -44,7 +43,6 @@ const UsersContainer: FC<PropsType> = ({currentPage, setCurrentPage, pageSize, u
     }, [currentPage, pageSize, users, toggleIsFetching, requestUsers])
 
     const onPageChanged = (pageNumber: number) => {
-        setCurrentPage(pageNumber)
         requestUsers(pageNumber, pageSize)
     }
 
@@ -73,7 +71,6 @@ export default compose(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
         follow,
         unFollow,
-        setCurrentPage,
         requestUsers
         }),
     WithAuthRedirect,

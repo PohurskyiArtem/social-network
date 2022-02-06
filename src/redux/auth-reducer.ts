@@ -1,5 +1,7 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPI, CaptchaResultCodeEnum, ResultCodeEnum, securityAPI } from "../api/api";
+import { ResultCodeEnum } from "../api/api";
+import { authAPI } from "../api/auth-api";
+import { securityAPI } from "../api/security-api";
 import { AppStateType } from "./store";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA",
@@ -89,10 +91,10 @@ export const login = (formData:FormDataType): ThunkType => async (dispatch) => {
     dispatch(authMe())
     dispatch(setCaptchaUrl(null))
   } else {
-    if(resultCode === CaptchaResultCodeEnum.CaptchaIsRequired) {
+    if(resultCode === ResultCodeEnum.CaptchaIsRequired) {
       dispatch(getCaptchaUrl());
     }
-    let message = messages.length > 0 && (resultCode === 10 ? "Confirm that you are not a bot" : messages[0]);
+    let message = messages!.length > 0 && (resultCode === 10 ? "Confirm that you are not a bot" : messages![0]);
     throw message;
   }
 };
