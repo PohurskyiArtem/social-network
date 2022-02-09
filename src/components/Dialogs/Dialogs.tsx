@@ -6,8 +6,22 @@ import cn from "classnames";
 import Icon from "../common/Icon/Icon";
 
 import ChatImg from "../../assets/images/messages.png";
+import { DialogsMapStatePropsType } from "./DialogsContainer";
+import { Dispatch, FC, SetStateAction } from "react";
 
-const MobileScreenHeader = ({selectedDialogName, toggleDialogsList}) => {
+type PropsType = DialogsMapStatePropsType & MobilePropsType & {
+    selectedDialog: null | number,
+    isDialogsListOpen: boolean,
+    addMessage: (data: {newMessageBody: string}) => void,
+    
+}
+
+type MobilePropsType = {
+    selectedDialogName: string | boolean
+    toggleDialogsList: Dispatch<SetStateAction<boolean>>
+}
+
+const MobileScreenHeader: FC<MobilePropsType> = ({selectedDialogName, toggleDialogsList}) => {
     return (
         <div className={style.mobileHeader}>
             <button onClick={() => toggleDialogsList(true)}><Icon name="left-arrow"/></button>
@@ -16,7 +30,7 @@ const MobileScreenHeader = ({selectedDialogName, toggleDialogsList}) => {
     )
 }
 
-const Dialogs = ({addMessage, dialogs, messages, selectedDialog, ownerId, isDialogsListOpen, ...props}) => {
+const Dialogs: FC<PropsType> = ({addMessage, dialogs, messages, selectedDialog, ownerId, isDialogsListOpen, ...props}) => {
     return (
         <section className={style.dialogs}>
             <ul className={cn({[style.dialogs__list]: true, [style.active]: isDialogsListOpen})}>

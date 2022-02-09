@@ -2,7 +2,7 @@ import styles from "./News.module.scss";
 import Info from "../common/Info/Info";
 import {CloseSidebar} from  "../../hoc/CloseSidebar";
 
-const News = props => {
+const News = () => {
     return (
         <>
         <h2 className={styles.news}>News</h2>

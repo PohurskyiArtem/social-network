@@ -1,8 +1,9 @@
 import Icon from "../Icon/Icon";
 import styles from "./Info.module.scss";
 import cn from "classnames";
+import { FC } from "react";
 
-const Info = ({text}) => {
+const Info: FC<{text: string}> = ({text}) => {
 
     return (
         <div className={cn(styles.container, "info")}>

@@ -1,8 +1,14 @@
 import styles from "./Pagination.module.scss";
 import cn from "classnames";
+import { FC } from "react";
 
-const PageLink = props => {
-    let {pageNumber, onPageChanged, currentPage} = props;
+type PropsType = {
+    pageNumber: number,
+    onPageChanged: (pageNumber: number) => void,
+    currentPage: number
+}
+
+const PageLink: FC<PropsType> = ({pageNumber, onPageChanged, currentPage}) => {
     let currentBoolean = currentPage === pageNumber ? true : false;
 
     return (

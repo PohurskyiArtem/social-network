@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import styles from "./ProfileInfo.module.scss";
 
-const ProfileStatusWithHooks = ({status, isOwner, updateStatus}) => {
+type PropsType = {
+    status: string | null,
+    isOwner: boolean,
+    updateStatus: (status: string) => Promise<any>
+}
+
+const ProfileStatusWithHooks: FC<PropsType> = ({status, isOwner, updateStatus}) => {
    
-    let [editMode, setEditMode] = useState(false);
-    let [localStatus, setLocalStatus] = useState(status);
+    let [editMode, setEditMode] = useState<boolean>(false);
+    let [localStatus, setLocalStatus] = useState<string>(status!);
 
     const activateEditMode = () => {
         setEditMode(true); 
@@ -13,16 +19,16 @@ const ProfileStatusWithHooks = ({status, isOwner, updateStatus}) => {
         deactivateEditMode = () => {
             setEditMode(false);
             if(status !== localStatus) {
-                updateStatus(localStatus).catch(() => setLocalStatus(status));
+                updateStatus(localStatus).catch(() => setLocalStatus(status!));
             }
         },
 
-        onStatusChange = (e) => {
+        onStatusChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
             setLocalStatus(e.target.value);
         };
 
     useEffect( () => {
-        setLocalStatus(status);
+        setLocalStatus(status!);
     }, [status] )
 
 
@@ -31,7 +37,7 @@ const ProfileStatusWithHooks = ({status, isOwner, updateStatus}) => {
             {!editMode ?
                 (
                     <div className={styles.statusContainer}>
-                        <span className={!localStatus ? styles.noStatus : null } onDoubleClick={isOwner ? activateEditMode : null}>{ localStatus || "Set status... (double click here)" }</span>
+                        <span className={!localStatus ? styles.noStatus : undefined } onDoubleClick={isOwner ? activateEditMode : undefined}>{ localStatus || "Set status... (double click here)" }</span>
                     </div>
                 ) : 
                 (

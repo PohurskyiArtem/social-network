@@ -6,7 +6,7 @@ import styles from "./Settings.module.scss";
 import Loader from "../common/Loader/Loader";
 import ProfileEditor from "./ProfileEditor";
 import { CloseSidebar } from "../../hoc/CloseSidebar";
-import { FC, useEffect, useState } from "react";
+import { ComponentType, FC, useEffect, useState } from "react";
 import { ProfileType } from "../../redux/types";
 import { AppStateType } from "../../redux/store";
 
@@ -45,4 +45,4 @@ export default compose(
     connect(mapStateToProps, {saveProfile}),
     WithAuthRedirect,
     CloseSidebar
-)(Settings)
+)(Settings) as ComponentType;

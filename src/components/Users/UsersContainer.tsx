@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { ComponentType, FC, useEffect, useState } from "react";
 import Users from "./Users";
 import Loader from "../common/Loader/Loader";
 import { connect } from 'react-redux';
@@ -75,4 +75,4 @@ export default compose(
         }),
     WithAuthRedirect,
     CloseSidebar
-)(UsersContainer)
+)(UsersContainer) as ComponentType;

@@ -10,7 +10,7 @@ import { useRef, useEffect, FC} from "react";
 import { MessageType } from "../../../redux/types";
 
 type addMessageType = {
-    addMessage: any
+    addMessage: (data: {newMessageBody: string}) => void
 }
 
 const AddMessageForm:FC<addMessageType> = ({addMessage}) => {
@@ -64,7 +64,7 @@ const Chat:FC<ChatPropsType> = ({addMessage, messages, ownerId}) => {
                 (
                     <>
                         <div className={style.chat__messages}>
-                                {messages.map( m => <Message message={m.messageText} id={m.messageId} isOwner={ownerId === m.userId} key={m.messageId + "m"}/>)}
+                                {messages.map( m => <Message message={m.messageText} isOwner={ownerId === m.userId} key={m.messageId + "m"}/>)}
                                 <div ref={scrollRef}></div>
                         </div>
                     </>

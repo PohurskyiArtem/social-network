@@ -96,7 +96,7 @@ export default dialogsReducer;
 type ActionType = InfernActionsTypes<typeof actions>;
 
 const actions = {
-  addMessage: (dialogsId: number, userId: number | null, messageText: string) => ({ type: ADD_MESSAGE, dialogsId, userId, messageText } as const)
+  addMessage: (dialogsId: number, userId: number | null, messageText: string) => ({ type: ADD_MESSAGE, dialogsId, userId, messageText })
 }
 
 type ThunkType = BaseThunkType<ActionType>;

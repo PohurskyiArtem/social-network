@@ -1,10 +1,16 @@
 import { connect } from 'react-redux';
 import Header from "./Header";
-import { logout } from "../../redux/auth-reducer.ts";
-import { toggleSidebar } from  "../../redux/sidebar-reducer.ts"; 
-import { useEffect, useState } from 'react';
+import { logout } from "../../redux/auth-reducer";
+import { toggleSidebar } from  "../../redux/sidebar-reducer"; 
+import { FC, useEffect, useState } from 'react';
+import { AppStateType } from '../../redux/store';
 
-const HeaderContainer = props => {
+export type HeaderPropsType = ReturnType<typeof mapStateToProps> & {
+    logout: () => void,
+    toggleSidebar: (isOpen: boolean) => void
+}
+
+const HeaderContainer:FC<HeaderPropsType> = props => {
     const [isVisible, setVisible] = useState(false);
     const [scrollPos, setScrollPos] = useState(window.scrollY);
 
@@ -27,11 +33,11 @@ const HeaderContainer = props => {
     }, [scrollPos])
 
     return (
-        <Header {...props} isVisible={isVisible} setVisible={setVisible}/>
+        <Header {...props} isVisible={isVisible}/>
     )
 }
 
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: state.auth.isAuth,
         userName: state.auth.login,

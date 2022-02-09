@@ -1,9 +1,9 @@
 import { Route, Redirect, withRouter, HashRouter, Switch } from "react-router-dom";
-import { lazy, useEffect } from "react";
+import { ComponentType, FC, lazy, useEffect } from "react";
 import { connect } from "react-redux";
-import store from "./redux/store";
+import store, { AppStateType } from "./redux/store";
 import { Provider } from "react-redux";
-import { initializeApp } from "./redux/app-reducer.ts";
+import { initializeApp } from "./redux/app-reducer";
 import { compose } from "redux";
 import { WithSuspense } from "./hoc/WithSuspense";
 import "./App.scss";
@@ -20,14 +20,19 @@ import Loader from "./components/common/Loader/Loader";
 import Page404 from "./components/common/Page-404/Page404";
 import { toast, ToastContainer } from "react-toastify";
 
-const ProfileContainer = lazy(() => import('./components/Profile/ProfileContainer'));
-const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
+const ProfileContainer = WithSuspense(lazy(() => import('./components/Profile/ProfileContainer')));
+const DialogsContainer = WithSuspense(lazy(() => import('./components/Dialogs/DialogsContainer')));
 
-const App = ({initializeApp, initialized}) => {
+type PropsType = {
+  initializeApp: () => void,
+  initialized: boolean
+}
 
-const catchAllUnhandledErrors = (promiseRejectionEvent) => {
-  toast.error(promiseRejectionEvent.reason || "Some error...");
-  console.error(promiseRejectionEvent);
+const App: FC<PropsType> = ({initializeApp, initialized}) => {
+
+const catchAllUnhandledErrors = (event: PromiseRejectionEvent) => {
+  toast.error(event.reason || "Some error...");
+  console.error(event);
 }
 
 useEffect(() => {
@@ -54,11 +59,11 @@ if(!initialized) {
             </Route>
             <Route 
               path='/profile/:userID?' 
-              render={WithSuspense(ProfileContainer)}
+              render={() => <ProfileContainer />}
             />
             <Route 
               path='/dialogs/:dialogID?' 
-              render={WithSuspense(DialogsContainer)}
+              render={() => <DialogsContainer />}
             />
             <Route path='/news' render={() => <News/>}/>
             <Route path='/users' render={() => <UsersContainer/>}/>
@@ -73,15 +78,15 @@ if(!initialized) {
 }
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized
 })
 
-let AppContainer = compose(
+let AppContainer = compose<ComponentType>(
   withRouter,
   connect(mapStateToProps, { initializeApp }))(App);
 
-const SocialApp = props => {
+const SocialApp: FC = () => {
   return (
     <HashRouter>
         <Provider store={store}>

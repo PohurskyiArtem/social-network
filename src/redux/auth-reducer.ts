@@ -42,9 +42,9 @@ export const actions = {
     email: string | null,
     login: string | null,
     isAuth: boolean
-    ) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth} as const}
+    ) => ({type: SET_USER_DATA, payload: {userId, email, login, isAuth}}
   ),
-  setCaptchaUrl: (captchaUrl:string | null) => ({type: SET_CAPTCHA_URL, payload: {captchaUrl}} as const)
+  setCaptchaUrl: (captchaUrl:string | null) => ({type: SET_CAPTCHA_URL, payload: {captchaUrl}})
 }
 
 //thunk creators

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import avatar from "../../../assets/images/defaultAvatar.png"
 import style from "./../Dialogs.module.scss";
 
-const Dialog = props => {
+const Dialog = (props: {id: number, name: string}) => {
     let path = "/dialogs/" + props.id;
 
     return (

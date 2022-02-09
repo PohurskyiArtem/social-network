@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import Icon from "../common/Icon/Icon";
 import MenuButton from '../common/MenuButton/MenuButton';
 import cn from "classnames";
+import { HeaderPropsType } from './HeaderContainer';
 
-const Header = ({isAuth, userName, logout, isOpen, toggleSidebar, isVisible, setVisible}) => {
+type PropsType = HeaderPropsType & {isVisible: boolean}
+
+const Header: FC<PropsType> = ({isAuth, userName, logout, isOpen, toggleSidebar, isVisible}) => {
     return (
         <header className={cn({[styles.header]: true, [styles.hide]: isVisible})}>
             <MenuButton isOpen={isOpen} onClickFunction={toggleSidebar} />

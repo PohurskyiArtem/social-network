@@ -5,13 +5,27 @@ import { NavLink } from "react-router-dom";
 import Icon from "../../common/Icon/Icon";
 import cn from "classnames";
 import Contacts from "./Contacts/Contacts";
+import { ProfileType } from "../../../redux/types";
+import { ChangeEvent, FC } from "react";
+import { removeNullUndefined } from "../../../utils/functions/removeNullProps";
 
-const ProfileInfo = ({profile: {photos, fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts, status}, isOwner, uploadPhoto, updateStatus }) => {
-    const onMainPhotoSelected = e => {
-        if(e.target.files.length) {
+type PropsType = {
+    profile: ProfileType,
+    isOwner: boolean
+
+    uploadPhoto: (photo: File) => void,
+    updateStatus: (status: string) => Promise<any>
+}
+
+const ProfileInfo: FC<PropsType & {}> = ({profile: {photos, fullName, lookingForAJob, lookingForAJobDescription, aboutMe, contacts, status}, isOwner, uploadPhoto, updateStatus }) => {
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files?.length) {
             uploadPhoto(e.target.files[0]);
         }
     }
+
+    const validContacts = removeNullUndefined(contacts);
+
     return (
         <section className={styles.profile}>
             <div className={styles.userInfo}>
@@ -55,7 +69,7 @@ const ProfileInfo = ({profile: {photos, fullName, lookingForAJob, lookingForAJob
                     </div>
                 )}
             </div>
-            <Contacts contacts={contacts}/>
+            {Object.keys(validContacts).length > 0 && <Contacts contacts={validContacts}/>}
         </section>
     )
 }

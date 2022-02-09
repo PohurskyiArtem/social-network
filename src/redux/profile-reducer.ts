@@ -103,11 +103,11 @@ export default profileReducer;
 
 // Action creators
 
-type ActionType = InfernActionsTypes<typeof actions>
+export type ActionType = InfernActionsTypes<typeof actions>
 
 export const actions = {
   addPost: (newPostbody:string, avatar:string) => ({type: ADD_POST, newPostbody, avatar} as const),
-  setUserProfile: (profile:ProfileType) => ({type: SET_USER_PROFILE, profile} as const),
+  setUserProfile: (profile:ProfileType | null) => ({type: SET_USER_PROFILE, profile} as const),
   setOwnerProfile: (profile:ProfileType) => ({type: SET_OWNER_PROFILE, profile} as const),
   toggleProfileLoading: (isProfileLoading:boolean) => ({type: TOGGLE_PROFILE_LOADING, isProfileLoading} as const),
   setUserStatus: (status: string) => ({type: SET_USER_STATUS, status} as const),
